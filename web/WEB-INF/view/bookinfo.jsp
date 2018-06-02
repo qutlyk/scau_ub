@@ -1,8 +1,8 @@
-<%@ page errorPage="ShowError.jsp" %>
-<%@page import="cn.yiban.ub.main.Login"%>
+
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=utf-8"%>
-<%@ page import="cn.yiban.ub.po.*"%>
+<%@ page import="model.Model" %>
+
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -21,29 +21,18 @@
 
 <title>旧书信息填写</title>
 
-<link href="JSP/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet"
+<link href="../../JSP/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet"
 	type="text/css">
-<link href="JSP/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet"
+<link href="../../JSP/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet"
 	type="text/css">
 
-<link href="JSP/css/personal.css" rel="stylesheet" type="text/css">
-<link href="JSP/css/addstyle.css" rel="stylesheet" type="text/css">
+<link href="../../JSP/css/personal.css" rel="stylesheet" type="text/css">
+<link href="../../JSP/css/addstyle.css" rel="stylesheet" type="text/css">
 
-<script src="JSP/AmazeUI-2.4.2/assets/js/jquery.min.js"
+<script src="../../JSP/AmazeUI-2.4.2/assets/js/jquery.min.js"
 	type="text/javascript"></script>
-<script src="JSP/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+<script src="../../JSP/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 
-<%
-	String useridstr = request.getParameter("userid");
-	//String useridstr = "201525060225";
-	User user = Login.testCheckUser(Long.parseLong(useridstr));
-	String hrefuser = "?userid=" + user.getUserid();
-	
-	
-	 
-
-	  
-%>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -63,19 +52,18 @@
 						type : "POST",
 						url : "BookServlet",
 						data : {
-							"book-name" : $("#book-name").val(),
-							"book-price" : $("#book-price").val(),
-							"book-press" : $("#book-press").val(),
+							"bookname" : $("#book-name").val(),
+							"price" : $("#book-price").val(),
+							"press" : $("#book-press").val(),
 							"book-version" : $("#book-version").val(),
 							"book-author" : $("#book-author").val(),
-							"book-kind" : $("#book-kind").val(),
-							"book-remarks" : $("#book-remarks").val(),
-							"up_img" : $("#up_img").val(),
-							"user-id" : $("#user-id").val(),
-							"user-phone" : $("#user-phone").val(),
-							"user-qq" : $("#user-qq").val(),
-							"yb_userid" : $("#yb_userid").val(),
-							"user-address" : $("#user-addressdd").val() 
+							"kind" : $("#book-kind").val(),
+							"other" : $("#book-remarks").val(),
+							"images" : $("#up_img").val(),
+							"sellerid" : $("#user-id").val(),
+							"phone" : $("#user-phone").val(),
+							"qq" : $("#user-qq").val(),
+							"address" : $("#user-addressdd").val()
 						},
 						success : function(msg) {
 							var dataObj = eval("(" + msg + ")");
@@ -125,52 +113,53 @@ function tip(){
 			<ul class="message-l">
 				<div class="topMessage">
 					<div class="menu-hd">
-						<a href="information.jsp<%=hrefuser%>" target="_top" class="h" style="color:#000000" >欢迎你&nbsp<%=user.getUsername() %>&nbsp,</a>
+						<a href="information" target="_top" class="h" style="color:#000000" >欢迎你&nbsp&nbsp,</a>
 						&nbsp
-						<a href="index.html" target="_top" class="h"  style="color:#0033ff" text-decoration="underline">退出登录</a>
+						<a href="index" target="_top" class="h"  style="color:#0033ff" text-decoration="underline">退出登录</a>
 					</div>
 				</div>
 			</ul>
 			<ul class="message-r">
 				<div class="topMessage home">
 					<div class="menu-hd">
-						<a href="home1.jsp<%=hrefuser%>" target="_top" class="h"><i
+						<a href="home" target="_top" class="h"><i
 							class="am-icon-home am-icon-fw"></i>商城首页</a>
 					</div>
 				</div>
 				<div class="topMessage my-shangcheng">
 					<div class="menu-hd MyShangcheng">
-						<a href="information.jsp<%=hrefuser%>" target="_top"><i
+						<a href="information" target="_top"><i
 							class="am-icon-user am-icon-fw"></i>个人中心</a>
 					</div>
 				</div>
 				<div class="topMessage mini-cart">
 					<div class="menu-hd">
-						<a id="mc-menu-hd" href="shopcart.jsp<%=hrefuser%>" target="_top"><i
+						<a id="mc-menu-hd" href="shopcart" target="_top"><i
 							class="am-icon-shopping-cart  am-icon-fw"></i><span>藏书夹</span><strong
 							id="J_MiniCartNum" class="h">0</strong></a>
 					</div>
 				</div>
 				<div class="topMessage favorite">
 					<div class="menu-hd">
-						<a href="sellinfo.jsp<%=hrefuser%>" target="_top"><i
+						<a href="sellinfo" target="_top"><i
 							class="am-icon-book am-icon-fw"></i><span>旧书交易</span></a>
 					</div>
+                </div>
 			</ul>
 		</div>
 
 		<!--悬浮搜索框-->
 
 		<div class="nav white">
-			<!--  <div class="logo"><img src="JSP/images/logo.png" /></div>-->
+			<!--  <div class="logo"><img src="../../JSP/images/logo.png" /></div>-->
 				<div class="logoBig">
-					<li><img src="JSP/images/logobig.png" /></li>
+					<li><img src="../../JSP/images/logobig.png" /></li>
 				</div>
 
 			<div class="search-bar pr">
 				<a name="index_none_header_sysc" href="#"></a>
 				<form action="search.jsp">
-					<input type="hidden" value="<%=user.getUserid()%>" id="userid"
+					<input type="hidden" value="${sessionScope.user.getUserid() }" id="userid"
 						name="userid"> <input id="searchInput"
 						name="index_none_header_sysc" type="text" placeholder="搜索"
 						autocomplete="on"> <input id="ai-topsearch"
@@ -189,9 +178,9 @@ function tip(){
 		</div>
 		<div class="nav-cont">
 			<ul>
-				<li class="index"><a href="home1.jsp<%=hrefuser%>">商城首页</a></li>
-				<li class="qc"><a href="information.jsp<%=hrefuser%>">个人中心</a></li>
-				<li class="qc"><a href="shopcart.jsp<%=hrefuser%>">我的藏书夹</a></li>
+				<li class="index"><a href="home">商城首页</a></li>
+				<li class="qc"><a href="information">个人中心</a></li>
+				<li class="qc"><a href="shopcart">我的藏书夹</a></li>
 			</ul>
 
 		</div>
@@ -222,7 +211,7 @@ function tip(){
 							<div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
 								<form id="upload" name="upload" method="post"
 									class="am-form am-form-horizontal"
-									action="UploadServlet?userid=<%=user.getUserid()%>"
+									action="UploadServlet?${sessionScope.user.getUserid() }"
 									enctype="multipart/form-data">
 									<!--  <form class="am-form am-form-horizontal"> -->
 									<div class="am-form-group">
@@ -285,8 +274,7 @@ function tip(){
 
 
 
-									<input type="hidden" id="tool" value=<%=user.getUserid() %>>
-									<script src="JSP/js/uploadPreview.js" type="text/javascript"></script>
+									<script src="../../JSP/js/uploadPreview.js" type="text/javascript"></script>
 									<script>
 										window.onload = function() {
 											new uploadPreview({
@@ -317,41 +305,29 @@ function tip(){
 										</div>
 									</div>
 
-									<input type="hidden" value="<%=useridstr %>" id="user-id">
 									<input type="hidden" value="<%=session.getAttribute("yb_userid") %>" id="yb_userid">
-									<%String address = user.getAdress();
-									if(address==null)
-										address="";
-									%>
 									<div class="am-form-group">
 								<label for="user-addressdd" class="am-form-label">宿舍地址</label>
 								<div class="am-form-content">
-									<input value="<%=address%>" id="user-addressdd"
+									<input value="${sessionScope.user.getAdress() }" id="user-addressdd"
 										placeholder="请到个人信息处先完善" type="tel" >
 
 								</div>
 							</div>
-									
-									
-									<% String phone=user.getPhonenumber(); 
-							if(phone==null){
-								phone="";
-							}
-							
-							%>		
+
 									<div class="am-form-group">
 									
 										<label for="user-phone" class="am-form-label">手机号码</label>
 										<div class="am-form-content" >
 									
-											<input value="<%=phone%>" id="user-phone"
+											<input value="${sessionScope.user.getPhone() }" id="user-phone"
 												placeholder="请到个人信息处先完善" type="email" >
 										</div>
 									</div>
 									<div class="am-form-group">
 										<label for="user-qq" class="am-form-label">QQ号码</label>
 										<div class="am-form-content">
-											<input value="<%=user.getQq()%>" id="user-qq"
+											<input value="${sessionScope.user.getQq() }" id="user-qq"
 												placeholder="QQ号必填" type="email">
 										</div>
 									</div>
@@ -406,17 +382,17 @@ function tip(){
 			<li class="person">个人中心</li>
 			<li class="person">&lt;个人资料 >
 				<ul>
-					<li ><a href="information.jsp<%=hrefuser%>">个人信息</a></li>
+					<li ><a href="information">个人信息</a></li>
 <!-- 					<li><a href="modifyPwd.jsp">密码修改</a></li> -->
 				</ul></li>
 			<li class="person">&lt;我的订单 >
 				<ul>
-					<li><a href="order.jsp<%=hrefuser%>">订单详情</a></li>
+					<li><a href="order">订单详情</a></li>
 				</ul></li>
 			<li class="person">&lt;旧书交易 >
 				<ul>
-					<li><a href="bookinfo.jsp<%=hrefuser%>">旧书上架</a></li>
-					<li><a href="sellinfo.jsp<%=hrefuser%>">出售详情</a></li>
+					<li><a href="bookinfo">旧书上架</a></li>
+					<li><a href="sellinfo">出售详情</a></li>
 				</ul></li>
 
 

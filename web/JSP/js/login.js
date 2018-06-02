@@ -187,7 +187,7 @@ $(document).ready(function() {
 if(isloginok){
 		$.ajax({
 			type : "POST",
-			url : "login.do",
+			url : "user/login.do",
 			data : {
 				"username" : $("#u").val(),
 				"password" : $("#p").val()
@@ -209,7 +209,7 @@ if(isloginok){
 				// }
 			},
 			error : function(e) {
-				alert('数据连接失败login', e);
+				alert('服务器连接失败，请重试 ', e);
 			}
 		});
 
@@ -356,7 +356,7 @@ if(isloginok){
 		if(okreg){
 			$.ajax({
 				type : "POST",
-				url : "regist.do",
+				url : "user/regist.do",
 				data : {
 				 	"userid" :  $("#stuid").val(),
 					"username" : $('#user').val(),

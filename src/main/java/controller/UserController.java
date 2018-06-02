@@ -6,14 +6,18 @@ import entity.User;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,14 +33,28 @@ public class UserController {
 
     @RequestMapping("/login.do")
     @ResponseBody
-    public JSONObject login(@RequestParam("username") Long username,@RequestParam("password") String password){
+    public JSONObject login(@RequestParam("username") Long username,@RequestParam("password") String password,
+                            HttpSession httpSession){
         System.out.println("用户名");
         System.out.println(username);
         User user=new User();
         user.setUserid(username);
         user.setPassword(password);
 
-        StatusCode statusCode=userService.login(user);
+        StatusCode statusCode;
+        List<User> users=userService.login(user);
+        if(users.size()>0){
+            for(User u : users){
+                if(u.getPassword().equals(user.getPassword())) {
+                    httpSession.setAttribute("user", u);
+                    statusCode = StatusCode.PASS;
+                }
+
+            }
+            statusCode = StatusCode.REJECT;
+        }else {
+            statusCode = StatusCode.REJECT;
+        }
 
         JSONObject map = new JSONObject();
         map.put("flag", statusCode.getState());
@@ -48,7 +66,7 @@ public class UserController {
 
     @RequestMapping("regist.do")
     @ResponseBody
-    public JSONObject register(User user, HttpServletResponse response){
+    public JSONObject register(User user){
 
         System.out.println(user.getUserid());
         StatusCode statusCode=userService.register(user);
@@ -58,4 +76,13 @@ public class UserController {
         map.put("result",statusCode.getStateInfo());
         return map;
     }
+
+    @RequestMapping("logout.do")
+    @ResponseBody
+    public ModelAndView logout(HttpSession httpSession){
+
+        return new ModelAndView("index");
+    }
+
+
 }

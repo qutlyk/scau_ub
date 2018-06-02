@@ -5,8 +5,8 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=utf-8"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%
-	String path = request.getContextPath();
+<%<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><!-- 引入jstl库 -->
+String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
@@ -45,10 +45,10 @@
 	userhead="../../JSP/images/getAvatar.do.jpg";
 	}*/
 
-		String hrefuser="201525060225";
+//		String hrefuser="201525060225";
 		String userhead="../../JSP/images/getAvatar.do.jpg";
-		User user =new User();
-		user.setUsername("叶镇亮");
+//		User user =new User();
+//		user.setUsername("叶镇亮");
 		ArrayList<String> bookkindlist=Model.bookkindlist;
 		ArrayList<String[]> projectlist = Model.projectlist;
 	 %>
@@ -60,7 +60,7 @@
 			<ul class="message-l">
 				<div class="topMessage">
 					<div class="menu-hd">
-						<a href="information.jsp<%=hrefuser%>" target="_top" class="h" style="color:#000000" >欢迎你&nbsp<%=user.getUsername() %>&nbsp,</a>
+						<a href="information" target="_top" class="h" style="color:#000000" >欢迎你&nbsp${sessionScope.user.getUsername() }&nbsp,</a>
 						&nbsp
 						<a href="index" target="_top" class="h"  style="color:#0033ff" text-decoration="underline">退出登录</a>
 					</div>
@@ -104,8 +104,7 @@
 					<div class="search-bar pr">
 						<a name="index_none_header_sysc" ></a>
 						<form action="/book/search.do" method="post">
-				<input type="hidden" value="<%=user.getUserid()%>" id="userid" name="userid">
-				<input id="searchInput" name="keyword" type="text" placeholder="书名/出版社" autocomplete="on">
+				<input id="searchInput" name="keyword" type="text" placeholder="书名/出版社/作者" autocomplete="on">
 				<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit" >
 				</form>
 					</div>
@@ -151,9 +150,9 @@
 										<ul class="category-list" id="js_climit_li">
 										<%int i=0;
 										for(String kind:bookkindlist) {  %>
-											<li href="introduction.jsp<%=hrefuser %>" class="appliance js_toggle relative first">
+											<li href="introduction" class="appliance js_toggle relative first">
 												<div    class="category-info">
-													<h3 class="category-name b-category-name"><i></i><a  class="ml-22" ><%=kind %></a></h3>
+													<h3 class="category-name b-category-name"><a  class="ml-22" ><%=kind %></a></h3>
 													<em >&gt;</em></div>
 												<div class="menu-item menu-in top">
 													<div class="area-in">
@@ -172,7 +171,6 @@
 														</div>
 													</div>
 												</div>
-											<b class="arrow"></b>	
 											</li>
 											<% i++;}%>
 										</ul>
@@ -210,11 +208,11 @@
 							    
 						<div class="mod-vip">
 							<div class="m-baseinfo">
-								<a href="information.jsp<%=hrefuser %>">
+								<a href="information">
 									<img src=<%=userhead%> >
 								</a>
 								<em>
-									Hi,<span class="s-name"><%=user.getUsername() %></span>
+									Hi,<span class="s-name">${sessionScope.user.getUsername() }</span>
 									<%--<br>--%>
 									<%--<font color="#0000FF">易班网薪值：<span class="s-name"><%=user.getMoney()%></span></font>--%>
 																		
@@ -231,8 +229,8 @@
 					        <br><br>
 					       
 					        <div class="member-logout">
-								<a class="am-btn-warning btn" href="shopcart.jsp<%=hrefuser %>">我的藏书夹</a>
-								<a class="am-btn-warning btn" href="bookinfo.jsp<%=hrefuser %>">旧书出售</a>
+								<a class="am-btn-warning btn" href="shopcart">我的藏书夹</a>
+								<a class="am-btn-warning btn" href="bookinfo">旧书出售</a>
 							</div>
 					        
 							
@@ -267,7 +265,7 @@
 					
 					<div class="am-g am-g-fixed recommendation">
 						<div class="clock am-u-sm-3" ">
-							<img src="../../JSP/images/2016.png "></img>
+							<img src="../../JSP/images/2016.png "/>
 							<p>今日<br>推荐</p>
 						</div>
 						<div class="am-u-sm-4 am-u-lg-3 ">
@@ -276,7 +274,7 @@
 								<h4 >旧书换知识</h4>
 							</div>
 							<div  class="recommendationMain one">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=机器学习" ><img src="../../JSP/images/tj.png "></img></a>
+								<a href="search.do&keyword=机器学习" ><img src="../../JSP/images/tj.png "></img></a>
 						</div>
 						</div>						
 						<div  class="am-u-sm-4 am-u-lg-3 ">
@@ -285,7 +283,7 @@
 								<h4 >一起来交换旧书</h4>
 							</div>
 							<div  class="recommendationMain two">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=数字设计" ><img src="../../JSP/images/tj1.png "></img></a>
+								<a href="search.do&keyword=数字设计" ><img src="../../JSP/images/tj1.png "></img></a>
 							</div>
 						</div>
 						<div class="am-u-sm-4 am-u-lg-3 ">
@@ -294,7 +292,7 @@
 								<h4 >我们的旧书有爱</h4>
 							</div>
 							<div  class="recommendationMain three">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=华农" ><img  src="../../JSP/images/tj2.png "></img></a>
+								<a href="search.do&keyword=华农" ><img  src="../../JSP/images/tj2.png "></img></a>
 							</div>
 						</div>
 
@@ -316,7 +314,7 @@
 							<div class="icon-sale one "></div>	
 								<h4>绿色</h4>							
 							<div class="activityMain ">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=大学英语" ><img  src="../../JSP/images/activity1.jpg "></img></a>
+								<a href="search.do&keyword=大学英语" ><img  src="../../JSP/images/activity1.jpg "></img></a>
 							</div>
 							<div class="info ">
 								<h3>最绿色的知识阶梯</h3>
@@ -325,9 +323,9 @@
 						
 						<div class="am-u-sm-3 ">
 						  <div class="icon-sale two "></div>	
-							<h4 href="search.jsp<%=hrefuser %>&index_none_header_sysc=云中歌">特惠</h4>
+							<h4 href="search.do&keyword=云中歌">特惠</h4>
 							<div class="activityMain ">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=电子技术"><img  src="../../JSP/images/activity2.jpg "></img></a>
+								<a href="search.do&keyword=电子技术"><img  src="../../JSP/images/activity2.jpg "></img></a>
 							</div>
 							<div class="info ">
 								<h3>省下钱更多友谊</h3>								
@@ -338,7 +336,7 @@
 							<div class="icon-sale three "></div>
 							<h4 >团购</h4>
 							<div class="activityMain ">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=云中歌"><img  src="../../JSP/images/activity3.jpg "></img></a>
+								<a href="search.do&keyword=云中歌"><img  src="../../JSP/images/activity3.jpg "></img></a>
 							</div>
 							<div class="info ">
 								<h3>把知识打包带走</h3>
@@ -349,7 +347,7 @@
 							<div class="icon-sale "></div>
 							<h4 >超值</h4>
 							<div  class="activityMain ">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=云中歌"><img src="../../JSP/images/activity.jpg " ></img></a>
+								<a href="search.do&keyword=云中歌"><img src="../../JSP/images/activity.jpg " ></img></a>
 							</div>
 							<div class="info ">
 								<h3>师姐的书你要吗</h3>
@@ -369,13 +367,13 @@
 							<h4>你的专业书架</h4>
 							<h3>每一本旧书都有一个故事</h3>
 							<div class="today-brands ">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=数据结构" >数据结构</a>
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=操作系统" >操作系统</a>
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=数据电路" >数据电路 </a>
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=C语言实践" >C语言实践</a>
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=Java课程设计" >Java课程设计</a>
+								<a href="search.do&keyword=数据结构" >数据结构</a>
+								<a href="search.do&keyword=操作系统" >操作系统</a>
+								<a href="search.do&keyword=数据电路" >数据电路 </a>
+								<a href="search.do&keyword=C语言实践" >C语言实践</a>
+								<a href="search.do&keyword=Java课程设计" >Java课程设计</a>
 								
-                                <a href="search.jsp<%=hrefuser %>&index_none_header_sysc=">更多好书》》<i class="am-icon-angle-right" style="padding-left:0px ;" ></i></a>
+                                <a href="search.do&keyword=">更多好书》》<i class="am-icon-angle-right" style="padding-left:0px ;" ></i></a>
                                 
 							</div>
 						</div>
@@ -384,12 +382,12 @@
 					<div class="am-g am-g-fixed floodFour">
 						<div class="am-u-sm-5 am-u-md-4 text-one list ">
 							<div class="word">
-								<a class="outer" href="search.jsp<%=hrefuser %>&index_none_header_sysc=c语言" ><span class="inner"><b class="text">c语言</b></span></a>
-								<a class="outer" href="search.jsp<%=hrefuser %>&index_none_header_sysc=c++" ><span class="inner"><b class="text">c++</b></span></a>
-								<a class="outer" href="search.jsp<%=hrefuser %>&index_none_header_sysc=c#" ><span class="inner"><b class="text">c#</b></span></a>	
-								<a class="outer" href="search.jsp<%=hrefuser %>&index_none_header_sysc=Java" ><span class="inner"><b class="text">Java</b></span></a>
-								<a class="outer" href="search.jsp<%=hrefuser %>&index_none_header_sysc=Python" ><span class="inner"><b class="text">Python</b></span></a>
-								<a class="outer" href="search.jsp<%=hrefuser %>&index_none_header_sysc=Php" ><span class="inner"><b class="text">Php</b></span></a>									
+								<a class="outer" href="search.do&keyword=c语言" ><span class="inner"><b class="text">c语言</b></span></a>
+								<a class="outer" href="search.do&keyword=c++" ><span class="inner"><b class="text">c++</b></span></a>
+								<a class="outer" href="search.do&keyword=c#" ><span class="inner"><b class="text">c#</b></span></a>	
+								<a class="outer" href="search.do&keyword=Java" ><span class="inner"><b class="text">Java</b></span></a>
+								<a class="outer" href="search.do&keyword=Python" ><span class="inner"><b class="text">Python</b></span></a>
+								<a class="outer" href="search.do&keyword=Php" ><span class="inner"><b class="text">Php</b></span></a>									
 							</div>
 							<a >
 								<div class="outer-con ">
@@ -400,7 +398,7 @@
 										旧书大礼包
 									</div>									
 								</div>
-                                  <a href="search.jsp<%=hrefuser %>&index_none_header_sysc="><img  src="../../JSP/images/act1.png " />	</a>							
+                                  <a href="search.do&keyword="><img  src="../../JSP/images/act1.png " />	</a>							
 							</a>
 							<div class="triangle-topright"></div>						
 						</div>
@@ -415,7 +413,7 @@
 									</div>
 									<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 								</div>
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/2.jpg" /></a>
+								<a href="search.do&keyword=" ><img src="../../JSP/images/2.jpg" /></a>
 							</div>
 
 							<div class="am-u-sm-7 am-u-md-4 text-two">
@@ -428,7 +426,7 @@
 									</div>
 									<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 								</div>
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/1.jpg" /></a>
+								<a href="search.do&keyword=" ><img src="../../JSP/images/1.jpg" /></a>
 							</div>
 
 
@@ -442,7 +440,7 @@
 								</div>
 								<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 							</div>
-							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/5.jpg" /></a>
+							<a href="search.do&keyword=" ><img src="../../JSP/images/5.jpg" /></a>
 						</div>
 
 						<div class="am-u-sm-3 am-u-md-2 text-three sug">
@@ -455,7 +453,7 @@
 								</div>
 								<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 							</div>
-							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/3.jpg" /></a>
+							<a href="search.do&keyword=" ><img src="../../JSP/images/3.jpg" /></a>
 						</div>
 
 						<div class="am-u-sm-3 am-u-md-2 text-three ">
@@ -468,7 +466,7 @@
 								</div>
 								<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 							</div>
-							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/4.jpg" /></a>
+							<a href="search.do&keyword=" ><img src="../../JSP/images/4.jpg" /></a>
 						</div>
 
 						<div class="am-u-sm-3 am-u-md-2 text-three last big ">
@@ -481,7 +479,7 @@
 								</div>
 								<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 							</div>
-							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/5.jpg" /></a>
+							<a href="search.do&keyword=" ><img src="../../JSP/images/5.jpg" /></a>
 						</div>
 
 					</div>

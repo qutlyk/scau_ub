@@ -20,18 +20,12 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserMapper userMapper;
 
-    public StatusCode login(User user){
+    public List<User> login(User user){
         UserExample ue=new UserExample();
         UserExample.Criteria uec =ue.createCriteria();
         uec.andUseridEqualTo(user.getUserid());
         List<User> users=userMapper.selectByExample(ue);
-        if(users.size()>0){
-            for(User u : users){
-                if(u.getPassword().equals(user.getPassword()))
-                    return StatusCode.PASS;
-            }
-        }
-        return  StatusCode.REJECT;
+        return users;
     }
 
     public StatusCode register(User user){

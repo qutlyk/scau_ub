@@ -28,6 +28,11 @@ public class ViewDispatcher {
         System.out.println();
         return "register.html";
     }
+    @RequestMapping("/search")
+    public String search(){
+        System.out.println();
+        return "search.jsp";
+    }
 
     @RequestMapping("/modifyPwd")
     public String rmodifyPwd(){

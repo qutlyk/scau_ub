@@ -1,5 +1,7 @@
 
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="entity.*"%>
+<%@page import="model.Model"%>
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=utf-8"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -18,15 +20,15 @@
 
 		<title>首页</title>
 
-		<link href="JSP/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
-		<link href="JSP/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css" />
+		<link href="../../JSP/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
+		<link href="../../JSP/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css" />
 
-		<link href="JSP/basic/css/demo.css" rel="stylesheet" type="text/css" />
+		<link href="../../JSP/basic/css/demo.css" rel="stylesheet" type="text/css" />
 
-		<link href="JSP/css/hmstyle.css" rel="stylesheet" type="text/css" />
-		<link href="JSP/css/skin.css" rel="stylesheet" type="text/css" />
-		<script src="JSP/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
-		<script src="JSP/AmazeUI-2.4.2/assets/js/amazeui.min.js"></script>
+		<link href="../../JSP/css/hmstyle.css" rel="stylesheet" type="text/css" />
+		<link href="../../JSP/css/skin.css" rel="stylesheet" type="text/css" />
+		<script src="../../JSP/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
+		<script src="../../JSP/AmazeUI-2.4.2/assets/js/amazeui.min.js" type="text/javascript"></script>
 
 		
 		
@@ -40,11 +42,15 @@
 	String userhead=(String)session.getAttribute("userhead");
 	
 	if(userhead==null){
-	userhead="JSP/images/getAvatar.do.jpg";
+	userhead="../../JSP/images/getAvatar.do.jpg";
 	}*/
 
 		String hrefuser="201525060225";
-		String userhead="JSP/images/getAvatar.do.jpg";
+		String userhead="../../JSP/images/getAvatar.do.jpg";
+		User user =new User();
+		user.setUsername("叶镇亮");
+		ArrayList<String> bookkindlist=Model.bookkindlist;
+		ArrayList<String[]> projectlist = Model.projectlist;
 	 %>
 
 	<body>
@@ -56,50 +62,50 @@
 					<div class="menu-hd">
 						<a href="information.jsp<%=hrefuser%>" target="_top" class="h" style="color:#000000" >欢迎你&nbsp<%=user.getUsername() %>&nbsp,</a>
 						&nbsp
-						<a href="index.html" target="_top" class="h"  style="color:#0033ff" text-decoration="underline">退出登录</a>
+						<a href="index" target="_top" class="h"  style="color:#0033ff" text-decoration="underline">退出登录</a>
 					</div>
 				</div>
 			</ul>
 			<ul class="message-r">
 				<div class="topMessage home">
 					<div class="menu-hd">
-						<a href="home1.jsp<%=hrefuser%>" target="_top" class="h"><i
+						<a href="home" target="_top" class="h"><i
 							class="am-icon-home am-icon-fw"></i>商城首页</a>
 					</div>
 				</div>
 				<div class="topMessage my-shangcheng">
 					<div class="menu-hd MyShangcheng">
-						<a href="information.jsp<%=hrefuser%>" target="_top"><i
+						<a href="information" target="_top"><i
 							class="am-icon-user am-icon-fw"></i>个人中心</a>
 					</div>
 				</div>
 				<div class="topMessage mini-cart">
 					<div class="menu-hd">
-						<a id="mc-menu-hd" href="shopcart.jsp<%=hrefuser%>" target="_top"><i
+						<a id="mc-menu-hd" href="shopcart" target="_top"><i
 							class="am-icon-shopping-cart  am-icon-fw"></i><span>藏书夹</span></a>
 					</div>
 				</div>
 				<div class="topMessage favorite">
 					<div class="menu-hd">
-						<a href="sellinfo.jsp<%=hrefuser%>" target="_top"><i
-							class="am-icon-book am-icon-fw"></i><span>旧书交易</span></a>
+						<a href="sellinfo" target="_top">
+							<i class="am-icon-book am-icon-fw"></i><span>旧书交易</span></a>
 					</div>
-					
+				</div>
 			</ul>
 		</div>
 
 				<!--悬浮搜索框-->
 
 				<div class="nav white">
-				<div class="logo"><img src="JSP/images/logo.png" /></div>
+				<div class="logo"><img src="../../JSP/images/logo.png" /></div>
 				<div class="logoBig">
-					<li><img src="JSP/images/logobig.png" /></li>
+					<li><img src="../../JSP/images/logobig.png" /></li>
 				</div>
 					<div class="search-bar pr">
 						<a name="index_none_header_sysc" ></a>
-						<form action="search.jsp" method="post">
+						<form action="/book/search.do" method="post">
 				<input type="hidden" value="<%=user.getUserid()%>" id="userid" name="userid">
-				<input id="searchInput" name="index_none_header_sysc" type="text" placeholder="书名/出版社" autocomplete="on"> 
+				<input id="searchInput" name="keyword" type="text" placeholder="书名/出版社" autocomplete="on">
 				<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit" >
 				</form>
 					</div>
@@ -111,16 +117,15 @@
 			
 			<div class="banner">
                       <!--轮播 -->
-						<div class="am-slider am-slider-default scoll" data-am-flexslider id="demo-slider-0">
+						<div class="am-slider am-slider-default scoll"  id="demo-slider-0">
 							<ul class="am-slides">
-								<li class="banner1"><a><img src="JSP/images/ad1.jpg" /></a></li>
-								<li class="banner2"><a><img src="JSP/images/ad2.jpg" /></a></li>
-								<li class="banner3"><a><img src="JSP/images/ad3.jpg" /></a></li>
-								<li class="banner4"><a><img src="JSP/images/ad4.jpg" /></a></li>
+								<li class="banner1"><a><img src="../../JSP/images/ad1.jpg" alt="dd"/></a></li>
+								<li class="banner2"><a><img src="../../JSP/images/ad2.jpg" alt="dd"/></a></li>
+								<li class="banner3"><a><img src="../../JSP/images/ad3.jpg" alt="dd"/></a></li>
+								<li class="banner4"><a><img src="../../JSP/images/ad4.jpg" alt="dd"/></a></li>
 
 							</ul>
 						</div>
-						<div class="clear"></div>	
 			</div>						
 			
 			<div class="shopNav">
@@ -129,10 +134,10 @@
 					   <div class="long-title"><span class="all-goods">书籍分类</span></div>
 					   <div class="nav-cont">
 							<ul>
-								<li class="index"><a href="home1.jsp<%=hrefuser %>">商城首页</a></li>
-                                <li class="qc"><a href="search.jsp<%=hrefuser %> ">旧书列表</a></li>
-                                <li class="qc"><a href="information.jsp<%=hrefuser %>">个人中心</a></li>
-                                <li class="qc"><a href="shopcart.jsp<%=hrefuser %>">我的藏书夹</a></li>
+								<li class="index"><a href="home">商城首页</a></li>
+                                <li class="qc"><a href="search">旧书列表</a></li>
+                                <li class="qc"><a href="information">个人中心</a></li>
+                                <li class="qc"><a href="shopcart">我的藏书夹</a></li>
 							</ul>
 						  
 						</div>
@@ -158,7 +163,7 @@
 																	<dl class="dl-sort">
 																		<dt><span title="<%=kind %>"><%=kind %></span></dt>
 																		<%for(String project:projectlist.get(i)) {%>
-																		<dd><a title="<%=project %>" href="search.jsp<%=hrefuser %>&index_none_header_sysc=<%=project %>" ><span><%=project %></span></a></dd>
+																		<dd><a title="<%=project %>" href="book/search.do?keyword=<%=project %>" ><span><%=project %></span></a></dd>
 																		<%} %>
 																	</dl>
 																</div>
@@ -210,18 +215,18 @@
 								</a>
 								<em>
 									Hi,<span class="s-name"><%=user.getUsername() %></span>
-									<br>
-									<font color="#0000FF">易班网薪值：<span class="s-name"><%=user.getMoney()%></span></font>
+									<%--<br>--%>
+									<%--<font color="#0000FF">易班网薪值：<span class="s-name"><%=user.getMoney()%></span></font>--%>
 																		
 								</em>
 								<br><br>
-								<a href="https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1
-								&tn=baidu&wd=%E6%98%93%E7%8F%AD%E7%BD%91%E8%96%AA&
-								rsv_pq=ac118aa50000b067&rsv_t=b97cjMIfSwIYBjhRYBvnixahluGwqqo
-								DxR6HMQethrwDQrpDIwTHpl1vO2I&rqlang=cn&rsv_enter=1&
-								rsv_sug3=2&rsv_sug1=2&rsv_sug7=100&rsv_sug2=0&
-								inputT=3578&rsv_sug4=3579" target="block">
-								<p>想挣点网薪？点击查看攻略来了解一下</p></a>
+								<%--<a href="https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1--%>
+								<%--&tn=baidu&wd=%E6%98%93%E7%8F%AD%E7%BD%91%E8%96%AA&--%>
+								<%--rsv_pq=ac118aa50000b067&rsv_t=b97cjMIfSwIYBjhRYBvnixahluGwqqo--%>
+								<%--DxR6HMQethrwDQrpDIwTHpl1vO2I&rqlang=cn&rsv_enter=1&--%>
+								<%--rsv_sug3=2&rsv_sug1=2&rsv_sug7=100&rsv_sug2=0&--%>
+								<%--inputT=3578&rsv_sug4=3579" target="block">--%>
+								<%--<p>想挣点网薪？点击查看攻略来了解一下</p></a>--%>
 							</div>
 					        <br><br>
 					       
@@ -262,7 +267,7 @@
 					
 					<div class="am-g am-g-fixed recommendation">
 						<div class="clock am-u-sm-3" ">
-							<img src="JSP/images/2016.png "></img>
+							<img src="../../JSP/images/2016.png "></img>
 							<p>今日<br>推荐</p>
 						</div>
 						<div class="am-u-sm-4 am-u-lg-3 ">
@@ -271,7 +276,7 @@
 								<h4 >旧书换知识</h4>
 							</div>
 							<div  class="recommendationMain one">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=机器学习" ><img src="JSP/images/tj.png "></img></a>
+								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=机器学习" ><img src="../../JSP/images/tj.png "></img></a>
 						</div>
 						</div>						
 						<div  class="am-u-sm-4 am-u-lg-3 ">
@@ -280,7 +285,7 @@
 								<h4 >一起来交换旧书</h4>
 							</div>
 							<div  class="recommendationMain two">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=数字设计" ><img src="JSP/images/tj1.png "></img></a>
+								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=数字设计" ><img src="../../JSP/images/tj1.png "></img></a>
 							</div>
 						</div>
 						<div class="am-u-sm-4 am-u-lg-3 ">
@@ -289,7 +294,7 @@
 								<h4 >我们的旧书有爱</h4>
 							</div>
 							<div  class="recommendationMain three">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=华农" ><img  src="JSP/images/tj2.png "></img></a>
+								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=华农" ><img  src="../../JSP/images/tj2.png "></img></a>
 							</div>
 						</div>
 
@@ -311,7 +316,7 @@
 							<div class="icon-sale one "></div>	
 								<h4>绿色</h4>							
 							<div class="activityMain ">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=大学英语" ><img  src="JSP/images/activity1.jpg "></img></a>
+								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=大学英语" ><img  src="../../JSP/images/activity1.jpg "></img></a>
 							</div>
 							<div class="info ">
 								<h3>最绿色的知识阶梯</h3>
@@ -322,7 +327,7 @@
 						  <div class="icon-sale two "></div>	
 							<h4 href="search.jsp<%=hrefuser %>&index_none_header_sysc=云中歌">特惠</h4>
 							<div class="activityMain ">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=电子技术"><img  src="JSP/images/activity2.jpg "></img></a>
+								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=电子技术"><img  src="../../JSP/images/activity2.jpg "></img></a>
 							</div>
 							<div class="info ">
 								<h3>省下钱更多友谊</h3>								
@@ -333,7 +338,7 @@
 							<div class="icon-sale three "></div>
 							<h4 >团购</h4>
 							<div class="activityMain ">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=云中歌"><img  src="JSP/images/activity3.jpg "></img></a>
+								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=云中歌"><img  src="../../JSP/images/activity3.jpg "></img></a>
 							</div>
 							<div class="info ">
 								<h3>把知识打包带走</h3>
@@ -344,7 +349,7 @@
 							<div class="icon-sale "></div>
 							<h4 >超值</h4>
 							<div  class="activityMain ">
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=云中歌"><img src="JSP/images/activity.jpg " ></img></a>
+								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=云中歌"><img src="../../JSP/images/activity.jpg " ></img></a>
 							</div>
 							<div class="info ">
 								<h3>师姐的书你要吗</h3>
@@ -395,7 +400,7 @@
 										旧书大礼包
 									</div>									
 								</div>
-                                  <a href="search.jsp<%=hrefuser %>&index_none_header_sysc="><img  src="JSP/images/act1.png " />	</a>							
+                                  <a href="search.jsp<%=hrefuser %>&index_none_header_sysc="><img  src="../../JSP/images/act1.png " />	</a>							
 							</a>
 							<div class="triangle-topright"></div>						
 						</div>
@@ -410,7 +415,7 @@
 									</div>
 									<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 								</div>
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="JSP/images/2.jpg" /></a>
+								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/2.jpg" /></a>
 							</div>
 
 							<div class="am-u-sm-7 am-u-md-4 text-two">
@@ -423,7 +428,7 @@
 									</div>
 									<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 								</div>
-								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="JSP/images/1.jpg" /></a>
+								<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/1.jpg" /></a>
 							</div>
 
 
@@ -437,7 +442,7 @@
 								</div>
 								<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 							</div>
-							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="JSP/images/5.jpg" /></a>
+							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/5.jpg" /></a>
 						</div>
 
 						<div class="am-u-sm-3 am-u-md-2 text-three sug">
@@ -450,7 +455,7 @@
 								</div>
 								<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 							</div>
-							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="JSP/images/3.jpg" /></a>
+							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/3.jpg" /></a>
 						</div>
 
 						<div class="am-u-sm-3 am-u-md-2 text-three ">
@@ -463,7 +468,7 @@
 								</div>
 								<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 							</div>
-							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="JSP/images/4.jpg" /></a>
+							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/4.jpg" /></a>
 						</div>
 
 						<div class="am-u-sm-3 am-u-md-2 text-three last big ">
@@ -476,7 +481,7 @@
 								</div>
 								<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 							</div>
-							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="JSP/images/5.jpg" /></a>
+							<a href="search.jsp<%=hrefuser %>&index_none_header_sysc=" ><img src="../../JSP/images/5.jpg" /></a>
 						</div>
 
 					</div>
@@ -491,7 +496,7 @@
 				</div>
 			</div>
 				
-				
+	</body>
 
 					
 

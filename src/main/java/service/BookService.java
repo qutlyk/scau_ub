@@ -1,7 +1,9 @@
 package service;
 
 import entity.Item;
+import entity.User;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 /**
@@ -11,5 +13,11 @@ import java.util.List;
  */
 public interface BookService {
 
-    public List<Item> searchBook(String keywords);
+    public List<Item> searchBook(String keywords,long userid);
+
+    public boolean addBook(Item item, User user);
+
+    public Item getBook(int itemid);
+
+    public Item getItem(int itemid);
 }

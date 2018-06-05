@@ -1,7 +1,7 @@
 package service;
 
-import entity.StatusCode;
 import entity.User;
+import model.StatusCode;
 
 import java.util.List;
 
@@ -13,5 +13,6 @@ import java.util.List;
 public interface UserService {
     public List<User> login(User user);
     public StatusCode register(User user);
-
+    public StatusCode updateUser(User user);
+    public User getUser(long userid);
 }

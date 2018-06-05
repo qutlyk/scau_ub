@@ -1,7 +1,7 @@
 package controller;
 
+import model.StatusCode;
 import net.sf.json.JSONObject;
-import entity.StatusCode;
 import entity.User;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +35,7 @@ public class UserController {
     @ResponseBody
     public JSONObject login(@RequestParam("username") Long username,@RequestParam("password") String password,
                             HttpSession httpSession){
+
         System.out.println("用户名");
         System.out.println(username);
         User user=new User();
@@ -43,15 +44,14 @@ public class UserController {
 
         StatusCode statusCode;
         List<User> users=userService.login(user);
+        statusCode = StatusCode.REJECT;
         if(users.size()>0){
             for(User u : users){
                 if(u.getPassword().equals(user.getPassword())) {
                     httpSession.setAttribute("user", u);
                     statusCode = StatusCode.PASS;
                 }
-
             }
-            statusCode = StatusCode.REJECT;
         }else {
             statusCode = StatusCode.REJECT;
         }
@@ -73,6 +73,19 @@ public class UserController {
         JSONObject map = new JSONObject();
         map.put("flag", statusCode.getState());
         map.put("page", "index");
+        map.put("result",statusCode.getStateInfo());
+        return map;
+    }
+
+    @RequestMapping("updateuser.do")
+    @ResponseBody
+    public JSONObject updateuser(User user){
+
+        System.out.println(user.getUserid());
+
+        StatusCode statusCode=userService.updateUser(user);
+        JSONObject map = new JSONObject();
+        map.put("flag", statusCode.getState());
         map.put("result",statusCode.getStateInfo());
         return map;
     }

@@ -122,10 +122,10 @@ public class BookController {
             // 将内存中的数据写入磁盘
             pic.transferTo(newFile);
 
-            return "home.jsp";
+            return "sellinfo";
         }
         else{
-            return "bookinfo.jsp";
+            return "bookinfo";
         }
 
 

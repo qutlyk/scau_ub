@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public StatusCode register(User user) {
+        user.setMoney(1000);
         UserExample ue = new UserExample();
         UserExample.Criteria uec = ue.createCriteria();
         if (user.getUserid() != null)

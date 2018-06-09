@@ -2,23 +2,14 @@ package entity;
 
 /**
  * @author yezl
- * @date 2018/6/4 22:59
+ * @date 2018/6/9 19:36
  * @decription this is :
  */
 public class SellerItem {
-
-    private Item item;
     private User seller;
+    private Item item;
 
     public SellerItem() {
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
     }
 
     public User getSeller() {
@@ -27,5 +18,13 @@ public class SellerItem {
 
     public void setSeller(User seller) {
         this.seller = seller;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

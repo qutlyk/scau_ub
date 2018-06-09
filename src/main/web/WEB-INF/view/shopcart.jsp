@@ -298,8 +298,8 @@
             <div class="operations">
                 <a href="#" hidefocus="true" class="deleteAll">删除</a>
             </div>
-
-            <div class="btn-area">
+            &nbsp;&nbsp;&nbsp;
+            <div class="btn-area">&nbsp;
                 <a onclick="DeleteAll()" id="J_Go" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算">
                     <span>清空藏书夹</span></a>
             </div>

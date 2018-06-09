@@ -226,7 +226,7 @@
                                                                 <div align="left">买家：${buyer.getUsername()}</div>
                                                                 <div align="left">qq：${buyer.getQq()}</div>
                                                                 <div align="left">手机：${buyer.getPhonenumber()}</div>
-                                                                <div align="left">地址：${ buyer.getAdress() }</div>
+                                                                <div align="left">地址：${ buyer.getAddress() }</div>
                                                             </div>
                                                         </li>
                                                         </c:if>
@@ -341,7 +341,7 @@
                                                                     <div align="left">买家：${buyer.getUsername()}</div>
                                                                     <div align="left">qq：${buyer.getQq()}</div>
                                                                     <div align="left">手机：${buyer.getPhonenumber()}</div>
-                                                                    <div align="left">地址：${ buyer.getAdress() }</div>
+                                                                    <div align="left">地址：${ buyer.getAddress() }</div>
                                                                 </div>
                                                             </li>
                                                         </c:if>
@@ -458,7 +458,7 @@
                                                                     <div align="left">买家：${buyer.getUsername()}</div>
                                                                     <div align="left">qq：${buyer.getQq()}</div>
                                                                     <div align="left">手机：${buyer.getPhonenumber()}</div>
-                                                                    <div align="left">地址：${ buyer.getAdress() }</div>
+                                                                    <div align="left">地址：${ buyer.getAddress() }</div>
                                                                 </div>
                                                             </li>
                                                         </c:if>

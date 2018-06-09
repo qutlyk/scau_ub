@@ -91,7 +91,7 @@
                         <p>收货人：${user.getUsername() }</p>
                         <p>联系电话：${user.getPhonenumber() }</p>
                         <p>QQ号码：${user.getQq() }</p>
-                        <p>收货地址：${user.getAdress() }</p>
+                        <p>收货地址：${user.getAddress() }</p>
                     </div>
                     请认真核对您的收货信息，如有错误请联系客服
 

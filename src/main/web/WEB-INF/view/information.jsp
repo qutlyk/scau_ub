@@ -249,7 +249,7 @@
                         <div class="am-form-group">
                             <label for="user-addressdd" class="am-form-label">宿舍地址</label>
                             <div class="am-form-content">
-                                <input value="${sessionScope.user.getAdress() }" id="user-addressdd"
+                                <input value="${sessionScope.user.getAddress() }" id="user-addressdd"
                                        placeholder="例:泰山区7栋624" type="tel">
                             </div>
                         </div>

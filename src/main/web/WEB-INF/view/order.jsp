@@ -272,7 +272,7 @@
                                                                 </div>
                                                                 <div align="left">qq号 :${seller.getQq()}
                                                                 </div>
-                                                                <div align="left">宿舍：${seller.getAdress()}
+                                                                <div align="left">宿舍：${seller.getAddress()}
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -383,7 +383,7 @@
                                                                 </div>
                                                                 <div align="left">qq号 :${seller.getQq()}
                                                                 </div>
-                                                                <div align="left">宿舍：${seller.getAdress()}
+                                                                <div align="left">宿舍：${seller.getAddress()}
                                                                 </div>
                                                             </div>
                                                         </li>

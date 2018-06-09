@@ -350,9 +350,6 @@ if(isloginok){
 			});
 			//window.location.href = "login.jsp";
 		}*/
-
-		alert("ffdfddf");
-		
 		if(okreg){
 			$.ajax({
 				type : "POST",
@@ -361,7 +358,9 @@ if(isloginok){
 				 	"userid" :  $("#stuid").val(),
 					"username" : $('#user').val(),
 					"password" : $("#passwd").val(),
-					"userqq" : $('#qq').val()
+					"qq" : $('#qq').val(),
+					"phonenumber": $('#phonenumber').val(),
+                    "address" : $('#address').val(),
 				},
 			success : function(data) {
 					alert(data.flag);

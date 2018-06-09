@@ -83,7 +83,6 @@
             <!--悬浮搜索框-->
 
             <div class="nav white">
-                <
                 <div class="logo"><img src="JSP/images/logo.png"/></div>
                 <div class="logoBig">
                     <li><img src="JSP/images/logobig.png"/></li>
@@ -222,7 +221,7 @@
                                 <div class="am-form-group">
                                     <label for="user-addressdd" class="am-form-label">宿舍地址</label>
                                     <div class="am-form-content">
-                                        <input name="address" value="${sessionScope.user.getAdress() }"
+                                        <input name="address" value="${sessionScope.user.getAddress() }"
                                                id="user-addressdd"
                                                placeholder="请到个人信息处先完善" type="tel">
 

@@ -68,7 +68,7 @@ public class UserController {
     @ResponseBody
     public JSONObject register(User user){
 
-        System.out.println(user.getUserid());
+        System.out.println("注册："+user.getUserid());
         StatusCode statusCode=userService.register(user);
         JSONObject map = new JSONObject();
         map.put("flag", statusCode.getState());

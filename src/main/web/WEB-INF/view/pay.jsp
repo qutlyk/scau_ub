@@ -156,7 +156,7 @@
                                                  <br>
 												<span class="buy-phone">手机：</span>${user.getPhonenumber()}
 												<br>
-										        <span class="street">地址：${user.getAdress() }</span>
+										        <span class="street">地址：${user.getAddress() }</span>
 										</span>
                         </div>
                         <ins class="deftip">默认地址</ins>
@@ -327,7 +327,7 @@
                                 <p class="buy-footer-address">
                                     <span class="buy-line-title buy-line-title-type">寄送至：</span>
                                     <span class="buy--address-detail">
-													<span class="street">${user.getAdress() }</span>
+													<span class="street">${user.getAddress() }</span>
 												</span>
                                 </p>
                                 <p class="buy-footer-address">

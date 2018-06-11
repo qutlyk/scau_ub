@@ -20,4 +20,6 @@ public interface BookService {
     public Item getBook(int itemid);
 
     public Item getItem(int itemid);
+
+    public List<Item> getallBook(long userid);
 }

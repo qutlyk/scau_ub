@@ -33,6 +33,8 @@
     <script type="text/javascript" src="JSP/js/jquery.imagezoom.min.js"></script>
     <script type="text/javascript" src="JSP/js/jquery.flexslider.js"></script>
     <script type="text/javascript" src="JSP/js/list.js"></script>
+
+
 </head>
 
 <body>
@@ -182,21 +184,25 @@
 
             <div class="box">
                 <script type="text/javascript">
-                    $(document).ready(function () {
+                    $(document).ready(function() {
                         $(".jqzoom").imagezoom();
-                        $("#thumblist li a").click(function () {
+                        $("#thumblist li a").click(function() {
                             $(this).parents("li").addClass("tb-selected").siblings().removeClass("tb-selected");
                             $(".jqzoom").attr('src', $(this).find("img").attr("mid"));
                             $(".jqzoom").attr('rel', $(this).find("img").attr("big"));
                         });
                     });
                 </script>
-
                 <div class="tb-booth tb-pic tb-s310">
-                    <a><img src="upload/${book.getImages()}" alt="细节展示放大镜特效"
-                            rel="upload/${book.getImages()}" class="jqzoom"/></a>
+                    <a href="upload/${book.getImages()}"><img src="upload/${book.getImages()}" alt="细节展示放大镜特效" rel="upload/${book.getImages()}" class="jqzoom" /></a>
                 </div>
-
+                <ul class="tb-thumb" id="thumblist">
+                    <li class="tb-selected">
+                        <div class="tb-pic tb-s40">
+                            <a href="#"><img src="upload/${book.getImages()}" mid="upload/${book.getImages()}" big="upload/${book.getImages()}"></a>
+                        </div>
+                    </li>
+                </ul>
             </div>
             <div class="clear"></div>
         </div>
@@ -214,7 +220,7 @@
                 <div class="tb-detail-list">
                     <!---->
                     <li class="price iteminfo_price">
-                        <dt>易班网薪</dt>
+                        <dt>虚拟书币</dt>
                         <dd><em>¥</em><b class="sys_item_price">${book.getPrice()}</b></dd>
                     </li>
                 </div>
@@ -236,12 +242,13 @@
                                             <li title="">作者/主编:&nbsp;${book.getAuthor() }
                                             </li>
                                             <li title="">出版社:&nbsp;${book.getPress() }
-                                            </li>
+                                            </li><br>
                                             <li title="">版本:&nbsp;${book.getOther() }
                                             </li>
                                             <li title="">专业:&nbsp;${book.getKind() }
                                             </li>
                                         </ul>
+                                        <h5 style="color: #ff5325">图书备注<h5/><br>
                                         <div>${book.getOther()}</div>
                                         <div class="clear"></div>
                                     </div>
@@ -267,7 +274,7 @@
                 <div class="clear"></div>
             </form>
         </div>
-        <form action="preparePay.do" id="submitpayiteid" method="POST">
+        <form action="preparePay.do" id="submitpayiteid" method="get">
             <input id="itemid" name="itemid" value="${book.getItemid()}" type="hidden">
         </form>
         <div class="pay">

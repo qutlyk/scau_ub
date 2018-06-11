@@ -153,7 +153,7 @@
                                         <strong>${it.getPrice()}</strong>
                                     </p>
                                     <p class="number fl">
-                                        版本：${it.getOther()}
+                                        版本：${it.getVersion()}
                                     </p>
                                 </div>
                             </li>

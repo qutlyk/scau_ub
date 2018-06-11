@@ -52,21 +52,17 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "updateuser.do",
+                        url: "user/updateuser.do",
                         data: {
                             "userid": $("#userid").val(),
                             "username": $("#user-name2").val(),
-                            "adress": $("#user-addressdd").val(),
+                            "address": $("#user-addressdd").val(),
                             "phonenumber": $("#user-phone").val(),
                             "qq": $("#user-qq").val()
                         },
                         success: function (msg) {
-                            var dataObj = eval("(" + msg + ")");
-                            if (dataObj.length < 2) {
-
-                                alert("保存个人信息失败，请等待服务器信息");
-
-
+                            if (msg.flag!=  200) {
+                                alert(msg.result);
                             } else {
                                 alert("保存个人信息成功");
                                 //$('#userCue1').html("<font color='red'><b>登录页成功</b></font>");
@@ -195,7 +191,7 @@
                         </div>
                         <div class="u-level">
 								<span class="rank r2"> <s class="vip1"></s><font
-                                        class="classes" color="#0000FF">易班网薪: ${sessionScope.user.getMoney() }</font>
+                                        class="classes" color="#0000FF">虚拟书币: ${sessionScope.user.getMoney() }</font>
 								</span>
                         </div>
                     </div>
@@ -245,7 +241,7 @@
                                 </select>
                             </div>
                         </div>
-                        <input type="hidden" value="${sessionScope.user.getUserid() }%>" id="user-id">
+                        <input type="hidden" value="${sessionScope.user.getUserid()}" id="userid">
                         <div class="am-form-group">
                             <label for="user-addressdd" class="am-form-label">宿舍地址</label>
                             <div class="am-form-content">

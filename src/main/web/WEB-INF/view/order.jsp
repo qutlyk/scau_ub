@@ -33,24 +33,24 @@
         // }
 
         function affirmGoods(theitemid) {//确认收货
-                var result = confirm('是否确认收货！');
-                if (result) {
-            $.ajax({
-                type: "POST",
-                url: "confirmgood.do",
-                data: {
-                    "itemid": theitemid,
-                },
-                success: function (msg) {
-                   if(msg.flag ==200)
-                       window.location.href = "order";
-                    alert(msg.result);
-                },
-                error: function (e) {
-                    alert('数据连接失败', e);
-                }
-            });
-        }
+            var result = confirm('是否确认收货！');
+            if (result) {
+                $.ajax({
+                    type: "POST",
+                    url: "confirmgood.do",
+                    data: {
+                        "itemid": theitemid,
+                    },
+                    success: function (msg) {
+                        if (msg.flag == 200)
+                            window.location.href = "order";
+                        alert(msg.result);
+                    },
+                    error: function (e) {
+                        alert('数据连接失败', e);
+                    }
+                });
+            }
         }
 
 
@@ -184,8 +184,8 @@
                 <div class="am-tabs am-tabs-d2 am-margin" data-am-tabs>
 
                     <ul class="am-avg-sm-5 am-tabs-nav am-nav am-nav-tabs">
-                        <li><a href="#tab5">已付款</a></li>
-                        <li><a href="#tab4">已收货</a></li>
+                        <li><a href="#tab4">已付款</a></li>
+                        <li><a href="#tab5">已收货</a></li>
                     </ul>
 
                     <div class="am-tabs-bd">
@@ -206,7 +206,7 @@
                                 <td class="td-inner">卖家信息</td>
                             </div>
                             <div class="th th-operation">
-                                <td class="td-inner">易班网薪</td>
+                                <td class="td-inner">虚拟书币</td>
                             </div>
                             <div class="th th-status">
                                 <td class="td-inner">交易状态</td>
@@ -215,7 +215,7 @@
                                 <td class="td-inner">交易操作</td>
                             </div>
                         </div>
-                        <div class="am-tab-panel am-fade" id="tab5">
+                        <div class="am-tab-panel am-fade" id="tab4">
                             <div class="order-main">
                                 <div class="order-list">
                                     <c:forEach items="${sellitemList1}" var="si">
@@ -308,11 +308,9 @@
                                                                 </div>
                                                             </li>
                                                             <li class="td td-change">
-                                                            <li class="td td-change">
                                                                 <div value="${item.getItemid()}"
                                                                      class="am-btn am-btn-danger anniu deletebook">删除记录
                                                                 </div>
-                                                            </li>
                                                             </li>
                                                         </div>
                                                     </c:if>
@@ -325,8 +323,7 @@
                         </div>
 
 
-
-                        <div class="am-tab-panel am-fade" id="tab6">
+                        <div class="am-tab-panel am-fade" id="tab5">
                             <div class="order-main">
                                 <div class="order-list">
                                     <c:forEach items="${sellitemList2}" var="si">
@@ -419,11 +416,9 @@
                                                                 </div>
                                                             </li>
                                                             <li class="td td-change">
-                                                            <li class="td td-change">
                                                                 <div value="${item.getItemid()}"
                                                                      class="am-btn am-btn-danger anniu deletebook">删除记录
                                                                 </div>
-                                                            </li>
                                                             </li>
                                                         </div>
                                                     </c:if>
@@ -433,8 +428,8 @@
                                     </c:forEach>
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
             </div>

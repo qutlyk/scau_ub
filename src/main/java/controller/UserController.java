@@ -64,7 +64,7 @@ public class UserController {
 
     }
 
-    @RequestMapping("regist.do")
+    @RequestMapping("/regist.do")
     @ResponseBody
     public JSONObject register(User user){
 
@@ -77,20 +77,21 @@ public class UserController {
         return map;
     }
 
-    @RequestMapping("updateuser.do")
+    @RequestMapping("/updateuser.do")
     @ResponseBody
-    public JSONObject updateuser(User user){
+    public JSONObject updateuser(User user,HttpSession httpSession){
 
         System.out.println(user.getUserid());
 
         StatusCode statusCode=userService.updateUser(user);
+        httpSession.setAttribute("user", userService.getUser(user.getUserid()));
         JSONObject map = new JSONObject();
         map.put("flag", statusCode.getState());
         map.put("result",statusCode.getStateInfo());
         return map;
     }
 
-    @RequestMapping("logout.do")
+    @RequestMapping("/logout.do")
     @ResponseBody
     public ModelAndView logout(HttpSession httpSession){
 

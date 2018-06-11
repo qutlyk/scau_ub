@@ -4,6 +4,7 @@ import dao.*;
 import entity.*;
 import model.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import service.OrderService;
 
@@ -49,7 +50,7 @@ public class OrderServiceImpl implements OrderService{
 
 
 
-
+    @CacheEvict(value= {"getbook","searchbook","getallbook"},allEntries=true)//清空缓存，allEntries变量表示所有对象的缓存都清除
     public StatusCode accountcash(int[] itemidlist, User user,int sum){
         User theuser =userMapper.selectByPrimaryKey(user.getUserid());
         if(theuser.getMoney()<sum)
@@ -173,7 +174,7 @@ public class OrderServiceImpl implements OrderService{
         return  orderItemList;
     }
 
-
+    @CacheEvict(value= {"getbook","searchbook","getallbook"},allEntries=true)//清空缓存，allEntries变量表示所有对象的缓存都清除
     public StatusCode deleteitem(int itemid ,long userid){
         Item delitem=itemMapper.selectByPrimaryKey(itemid);
         if(delitem.getSellerid()!=userid)

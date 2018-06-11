@@ -28,6 +28,8 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+
+
     public StatusCode register(User user) {
         user.setMoney(1000);
         UserExample ue = new UserExample();

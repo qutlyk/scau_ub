@@ -363,7 +363,7 @@ if(isloginok){
                     "address" : $('#address').val(),
 				},
 			success : function(data) {
-					alert(data.flag);
+					alert(data.result);
 					if(data.flag==200)
                         window.location.href = "index";
 					else

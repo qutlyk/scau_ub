@@ -1,11 +1,15 @@
 package entity;
 
+import java.io.Serializable;
+
 /**
  * @author yezl
  * @date 2018/6/9 19:35
  * @decription this is :
  */
-public class BuyerItem {
+public class BuyerItem implements Serializable{
+
+
     private User buyer;
     private Item item;
 

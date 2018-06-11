@@ -46,7 +46,7 @@ public class OrderController {
             System.out.println("itemid:"+i);
         if (orderService.canbebuied(itemids)) {
             for(int i:itemids) {
-                Item item = bookService.getItem(i);
+                Item item = bookService.getBook(i);
                 items.add(item);
                 orderService.deleteshopcart(i, userid);
             }
@@ -66,6 +66,7 @@ public class OrderController {
             System.out.println("itemidlist"+i);
         int sum = orderService.sumPrice(itemidlist);
         StatusCode statusCode = orderService.accountcash(itemidlist, buyer, sum);
+        httpSession.setAttribute("user", userService.getUser(buyer.getUserid()));
 
         ModelAndView modelAndView = new ModelAndView("successPay.jsp");
         modelAndView.getModel().put("sum", sum);

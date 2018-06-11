@@ -152,7 +152,7 @@
                                 <td class="td-inner">商品备注</td>
                             </div>
                             <div class="th th-amount">
-                                <td class="td-inner">易班网薪</td>
+                                <td class="td-inner">虚拟书币</td>
                             </div>
                             <div class="th th-status">
                                 <td class="td-inner">商品状态</td>
@@ -215,12 +215,12 @@
                                                                 <span>×</span>1
                                                             </div>
                                                         </li>
-                                                        <c:if test="${it.getStatus() ==0}">
+                                                        <c:if test="${i1.getStatus() ==0}">
                                                         <li class="td td-operation">
                                                             <div class="item-operation"></div>
                                                         </li>
                                                         </c:if>
-                                                        <c:if test="${it.getStatus() !=0}">
+                                                        <c:if test="${i1.getStatus() !=0}">
                                                         <li class="td td-operation">
                                                             <div class="item-operation">
                                                                 <div align="left">买家：${buyer.getUsername()}</div>
@@ -236,7 +236,7 @@
                                                                     合计：${i1.getPrice()}
                                                                 </div>
                                                             </li>
-                                                            <c:if test="${it.getStatus() ==0}">
+                                                            <c:if test="${i1.getStatus() ==0}">
                                                                 <div class="move-right">
                                                                     <li class="td td-change">未找到买家</li>
                                                                     <li class="td td-change">
@@ -256,7 +256,7 @@
                                                                     </li>
                                                                 </div>
                                                             </c:if>
-                                                            <c:if test="${it.getStatus() ==2}">
+                                                            <c:if test="${i1.getStatus() ==2}">
                                                                 <div class="move-right">
                                                                     <li class="td td-change">
                                                                         <p>交易成功</p>
@@ -330,12 +330,12 @@
                                                                 <span>×</span>1
                                                             </div>
                                                         </li>
-                                                        <c:if test="${it.getStatus() ==0}">
+                                                        <c:if test="${i1.getStatus() ==0}">
                                                             <li class="td td-operation">
                                                                 <div class="item-operation"></div>
                                                             </li>
                                                         </c:if>
-                                                        <c:if test="${it.getStatus() !=0}">
+                                                        <c:if test="${i1.getStatus() !=0}">
                                                             <li class="td td-operation">
                                                                 <div class="item-operation">
                                                                     <div align="left">买家：${buyer.getUsername()}</div>
@@ -352,7 +352,7 @@
                                                                     合计：${i1.getPrice()}
                                                                 </div>
                                                             </li>
-                                                            <c:if test="${it.getStatus() ==0}">
+                                                            <c:if test="${i1.getStatus() ==0}">
                                                                 <div class="move-right">
                                                                     <li class="td td-change">未找到买家</li>
                                                                     <li class="td td-change">
@@ -363,7 +363,7 @@
                                                                     </li>
                                                                 </div>
                                                             </c:if>
-                                                            <c:if test="${it.getStatus() ==1}">
+                                                            <c:if test="${i1.getStatus() ==1}">
                                                                 <div class="move-right">
                                                                     <li class="td td-change">买家未确认收货</li>
                                                                     <li class="td td-change">
@@ -371,7 +371,7 @@
                                                                     </li>
                                                                 </div>
                                                             </c:if>
-                                                            <c:if test="${it.getStatus() ==2}">
+                                                            <c:if test="${i1.getStatus() ==2}">
                                                                 <div class="move-right">
                                                                     <li class="td td-change">
                                                                         <p>交易成功</p>
@@ -447,12 +447,12 @@
                                                                 <span>×</span>1
                                                             </div>
                                                         </li>
-                                                        <c:if test="${it.getStatus() ==0}">
+                                                        <c:if test="${i1.getStatus() ==0}">
                                                             <li class="td td-operation">
                                                                 <div class="item-operation"></div>
                                                             </li>
                                                         </c:if>
-                                                        <c:if test="${it.getStatus() !=0}">
+                                                        <c:if test="${i1.getStatus() !=0}">
                                                             <li class="td td-operation">
                                                                 <div class="item-operation">
                                                                     <div align="left">买家：${buyer.getUsername()}</div>
@@ -469,7 +469,7 @@
                                                                     合计：${i1.getPrice()}
                                                                 </div>
                                                             </li>
-                                                            <c:if test="${it.getStatus() ==0}">
+                                                            <c:if test="${i1.getStatus() ==0}">
                                                                 <div class="move-right">
                                                                     <li class="td td-change">未找到买家</li>
                                                                     <li class="td td-change">
@@ -480,7 +480,7 @@
                                                                     </li>
                                                                 </div>
                                                             </c:if>
-                                                            <c:if test="${it.getStatus() ==1}">
+                                                            <c:if test="${i1.getStatus() ==1}">
                                                                 <div class="move-right">
                                                                     <li class="td td-change">买家未确认收货</li>
                                                                     <li class="td td-change">
@@ -488,7 +488,7 @@
                                                                     </li>
                                                                 </div>
                                                             </c:if>
-                                                            <c:if test="${it.getStatus() ==2}">
+                                                            <c:if test="${i1.getStatus() ==2}">
                                                                 <div class="move-right">
                                                                     <li class="td td-change">
                                                                         <p>交易成功</p>
@@ -572,9 +572,9 @@
                     type: "POST",
                     url: "deletesellitem.do",
                     data: {
-                        "itemid": theitemid,
+                        "itemid": theitemid
                     },
-                    success: function (msg) {
+                    success: function (data) {
                         if (data.flag == 200)
                             $("#" + theitemid + "").remove();
 

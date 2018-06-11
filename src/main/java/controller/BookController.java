@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.awt.print.Book;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -66,7 +67,11 @@ public class BookController {
     public ModelAndView search(@RequestParam("keyword")String keyword, HttpSession httpSession){
         User user =(User) httpSession.getAttribute("user");
         ModelAndView modelAndView =new ModelAndView("search.jsp");
-        List<Item> book_list = bookService.searchBook(keyword,user.getUserid());
+        List<Item> book_list = new ArrayList<Item>();
+        if(keyword.equals("全部旧书"))
+            book_list = bookService.getallBook(user.getUserid());
+        else
+            book_list = bookService.searchBook(keyword,user.getUserid());
         System.out.println("一共收到："+book_list.size());
         modelAndView.addObject("booklist", book_list);
         modelAndView.getModel().put("keyword", keyword);
@@ -76,19 +81,18 @@ public class BookController {
 
     @RequestMapping("/search")
     public ModelAndView search(HttpSession httpSession){
-        String keyword = "旧书";
         User user =(User) httpSession.getAttribute("user");
         ModelAndView modelAndView =new ModelAndView("search.jsp");
-        List<Item> book_list = bookService.searchBook(keyword,user.getUserid());
+        List<Item> book_list = bookService.getallBook(user.getUserid());
         System.out.println("一共收到："+book_list.size());
         modelAndView.addObject("booklist", book_list);
-        modelAndView.getModel().put("keyword", keyword);
+        modelAndView.getModel().put("keyword", "全部旧书");
         return modelAndView;
 
     }
 
     @RequestMapping("/addBook.do")
-    public String addBook(Item item, @RequestParam("uploadimage") MultipartFile pic,
+    public ModelAndView addBook(Item item, @RequestParam("uploadimage") MultipartFile pic,
                               HttpServletRequest request, HttpSession httpSession)
             throws IllegalStateException, IOException {
         System.out.println(item.getBookname());
@@ -121,11 +125,10 @@ public class BookController {
             System.out.println("File:"+newFile.getAbsolutePath());
             // 将内存中的数据写入磁盘
             pic.transferTo(newFile);
-
-            return "sellinfo";
+            return new ModelAndView("redirect:/sellinfo");
         }
         else{
-            return "bookinfo";
+            return new ModelAndView("redirect:/bookinfo");
         }
 
 

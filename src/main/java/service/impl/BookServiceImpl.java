@@ -8,7 +8,11 @@ import entity.ItemExample;
 import entity.Sell;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import service.BookService;
 
@@ -22,12 +26,14 @@ import java.util.List;
  * @decription this is :根据bookname author press kind other
  */
 @Service
+@Transactional(propagation= Propagation.REQUIRED, rollbackFor=Exception.class)
 public class BookServiceImpl implements BookService{
     @Autowired
     ItemMapper itemMapper;
     @Autowired
     SellMapper sellMapper;
 
+    @Cacheable("searchbook") //标注该方法查询的结果进入缓存，再次访问时直接读取缓存中的数据
     public List<Item> searchBook(String keywords,long userid){
         System.out.println("你搜索的是"+keywords);
         String[] keyword= keywords.split("");
@@ -51,7 +57,7 @@ public class BookServiceImpl implements BookService{
         return itemlist;
     }
 
-
+    @CacheEvict(value= {"getbook","searchbook","getallbook"},allEntries=true)//清空缓存，allEntries变量表示所有对象的缓存都清除
     public boolean addBook(Item item, User user){
         ItemExample ie =new ItemExample();
         ItemExample.Criteria iec =ie.createCriteria();
@@ -63,12 +69,12 @@ public class BookServiceImpl implements BookService{
         item.setStatus(0);
         itemMapper.insert(item);
 
-
         return true;
-
-
     }
 
+
+
+    @Cacheable("getbook")
     public Item getBook(int itemid){
         ItemExample ie =new ItemExample();
         ItemExample.Criteria iec =ie.createCriteria();
@@ -79,6 +85,7 @@ public class BookServiceImpl implements BookService{
 
         return it;
     }
+    @Cacheable("getbook")
     public Item getItem(int itemid){
         Item item= itemMapper.selectByPrimaryKey(itemid);
         if(item.getStatus()==0){
@@ -86,6 +93,15 @@ public class BookServiceImpl implements BookService{
         }
         return null;
 
+    }
+    @Cacheable("getallbook")
+    public List<Item> getallBook(long userid){
+
+        ItemExample ie =new ItemExample();
+        ItemExample.Criteria iec = ie.createCriteria();
+        iec.andStatusEqualTo(0).andSelleridNotEqualTo(userid);
+        List<Item> itemlist = itemMapper.selectByExample(ie);
+        return itemlist;
     }
 
 

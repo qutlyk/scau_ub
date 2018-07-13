@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface BookService {
 
-    public List<Item> searchBook(String keywords,long userid);
+    public List<Item> searchBook(String keywords,long userid,int start,int num,String orderStr);
 
     public boolean addBook(Item item, User user);
 
@@ -21,5 +21,5 @@ public interface BookService {
 
     public Item getItem(int itemid);
 
-    public List<Item> getallBook(long userid);
+    public List<Item> getallBook(long userid,int start,int num,String orderstr);
 }

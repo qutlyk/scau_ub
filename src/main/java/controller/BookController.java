@@ -64,17 +64,54 @@ public class BookController {
 
 
     @RequestMapping("/search.do")
-    public ModelAndView search(@RequestParam("keyword")String keyword, HttpSession httpSession){
+    public ModelAndView search(@RequestParam("keyword")String keyword,
+                               Integer sort,Integer start,Integer limit,
+                               HttpSession httpSession){
+        int nextsort =1;
+        System.out.println("sort"+sort);
+        System.out.println("start"+start);
+        System.out.println("limit"+limit);
+        String sortStr = "itemid desc";
+        if(sort!=null) {
+            if (sort == 1) {   //价格从小到大，
+                sortStr = "price asc";
+            } else if (sort == -1) {//价格从大到小，
+                sortStr = "price desc";
+            }
+            nextsort = -sort;
+        }
+
+        if(start==null){
+            start=1;
+        }
+
+        if(limit==null){
+            limit=8;
+        }
+        if(start<=0){
+            start=1;
+        }
+
+        System.out.println("判断后面");
+        System.out.println("sort"+sort);
+        System.out.println("start"+start);
+        System.out.println("limit"+limit);
+        int starts=limit*(start-1);
+
         User user =(User) httpSession.getAttribute("user");
         ModelAndView modelAndView =new ModelAndView("search.jsp");
         List<Item> book_list = new ArrayList<Item>();
         if(keyword.equals("全部旧书"))
-            book_list = bookService.getallBook(user.getUserid());
+            book_list = bookService.getallBook(user.getUserid(),starts,limit,sortStr);
         else
-            book_list = bookService.searchBook(keyword,user.getUserid());
+            book_list = bookService.searchBook(keyword,user.getUserid(),starts,limit,sortStr);
         System.out.println("一共收到："+book_list.size());
         modelAndView.addObject("booklist", book_list);
         modelAndView.getModel().put("keyword", keyword);
+        modelAndView.getModel().put("nextsort", nextsort);
+        modelAndView.getModel().put("sort", sort);
+        modelAndView.getModel().put("start", start);
+
         return modelAndView;
 
     }
@@ -83,7 +120,7 @@ public class BookController {
     public ModelAndView search(HttpSession httpSession){
         User user =(User) httpSession.getAttribute("user");
         ModelAndView modelAndView =new ModelAndView("search.jsp");
-        List<Item> book_list = bookService.getallBook(user.getUserid());
+        List<Item> book_list = bookService.getallBook(user.getUserid(),0,8,"itemid desc");
         System.out.println("一共收到："+book_list.size());
         modelAndView.addObject("booklist", book_list);
         modelAndView.getModel().put("keyword", "全部旧书");

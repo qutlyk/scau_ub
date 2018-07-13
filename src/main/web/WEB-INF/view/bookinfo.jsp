@@ -34,7 +34,37 @@
 
 
 </head>
+<script type="text/javascript">
 
+
+    function getKey() {
+        var isbn = $("#book_isbn").val();
+        if (isbn.length == 13 || isbn.length == 17) {
+            //var isbn="https://api.douban.com/v2/book/isbn/:9787115290366";
+            var url = "https://api.douban.com/v2/book/isbn/:" + isbn + "";
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'JSONP',//here
+                success: function (data) {
+                    console.log(data);
+                    $("#book-name").val(data.title);
+                    $("#book-price").val(data.price);
+                    $("#book-press").val(data.publisher);
+                    $("#book-version").val(data.pages);
+                    $("#book-author").val(data.author);
+                    $("#book-remarks").val(data.summary);
+                    $("#book-catalog").val(data.catalog);
+                    $('#imgShow2').attr("src", data.images.large);
+                }
+            });
+        }
+
+
+    }
+
+
+</script>
 <body>
 <!--头 -->
 <header>
@@ -128,12 +158,22 @@
                         </div>
                         <hr/>
 
-                        <div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
-                            <form id="upload" name="upload" method="post"
-                                  class="am-form am-form-horizontal"
-                                  action="addBook.do"
-                                  enctype="multipart/form-data">
+                        <form id="upload" name="upload" method="post"
+                              class="am-form am-form-horizontal"
+                              action="addBook.do"
+                              enctype="multipart/form-data">
+                            <div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;float:left;">
+
+
                                 <!--  <form class="am-form am-form-horizontal"> -->
+                                <div class="am-form-group">
+                                    <label for="book-name" class="am-form-label">ISBN</label>
+                                    <div class="am-form-content">
+                                        <input type="text" name="isbn" id="book_isbn"
+                                               placeholder="ISBN:xxx-x-xxx-xxxxx-x (13位或者17位) 建议先输入ISBN,输入后会自动查询信息"
+                                               oninput="getKey();">
+                                    </div>
+                                </div>
                                 <div class="am-form-group">
                                     <label for="book-name" class="am-form-label">书名</label>
                                     <div class="am-form-content">
@@ -183,39 +223,38 @@
                                     </div>
                                 </div>
 
+                                <br>
+                                <b class="line"></b>
+                                <br>
+
                                 <div class="am-form-group">
                                     <label for="book-remarks" name="otherlabel" class="am-form-label">备注</label>
                                     <div class="am-form-content">
-											<textarea class="" name="other" rows="3" id="book-remarks"
+											<textarea class="" name="other" rows="8" id="book-remarks"
                                                       placeholder="100字以内写出你的旧书详细信息.."></textarea>
 
                                     </div>
                                 </div>
-
-
-                                <script src="JSP/js/uploadPreview.js" type="text/javascript"></script>
-                                <script>
-                                    window.onload = function () {
-                                        new uploadPreview({
-                                            UpBtn: "up_img",
-                                            DivShow: "imgdiv",
-                                            ImgShow: "imgShow"
-                                        });
-
-                                    }
-                                </script>
-                                <div id="imgdiv">
-                                    <img id="imgShow" width="100" height="100"/>
-                                </div>
-                                <input type="file" id="up_img" name="uploadimage"/></br>
-                                <div><font color="#FF0000">请上传一张清晰的旧书封面照</font></div>
+                                <br>
                                 <b class="line"></b>
+                                <br>
+
+                                <div class="am-form-group">
+                                    <label for="book-catalog" name="otherlabe2" class="am-form-label">书籍目录详情</label>
+                                    <div class="am-form-content">
+											<textarea class="" name="other" rows="10" id="book-catalog"
+                                                      placeholder="书籍目录详情.."></textarea>
+
+                                    </div>
+                                </div>
+
 
                                 <div class="am-cf am-padding">
                                     <div class="am-fl am-cf">
                                         <strong class="am-text-danger am-text-lg">填写你的联系方式</strong> /
                                         <small>your&nbsp;address&nbsp;information</small>
                                     </div>
+
                                 </div>
 
                                 <div class="am-form-group">
@@ -233,7 +272,8 @@
                                     <label name="phone" for="user-phone" class="am-form-label">手机号码</label>
                                     <div class="am-form-content">
 
-                                        <input name="phone" value="${sessionScope.user.getPhonenumber() }" id="user-phone"
+                                        <input name="phone" value="${sessionScope.user.getPhonenumber() }"
+                                               id="user-phone"
                                                placeholder="请到个人信息处先完善">
                                     </div>
                                 </div>
@@ -257,9 +297,28 @@
                                             data-am-modal-close>暂时保存</a>-->
                                     </div>
                                 </div>
-                            </form>
-                        </div>
 
+                            </div>
+                            <script src="JSP/js/uploadPreview.js" type="text/javascript"></script>
+                            <script>
+                                window.onload = function () {
+                                    new uploadPreview({
+                                        UpBtn: "up_img",
+                                        DivShow: "imgdiv",
+                                        ImgShow: "imgShow"
+                                    });
+
+                                }
+                            </script>
+
+                            <div id="imgdiv" style="float:right;">
+                                <img id="imgShow" width="150" height="210"/>
+                                <input type="file" id="up_img" name="uploadimage"/></br>
+                                <div><font color="#FF0000">请上传一张清晰的旧书封面照</font></div>
+
+                                <img id="imgShow2" width="150" height="210"/>
+                            </div>
+                        </form>
                     </div>
 
                 </div>

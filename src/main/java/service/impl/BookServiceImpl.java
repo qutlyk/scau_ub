@@ -33,8 +33,32 @@ public class BookServiceImpl implements BookService{
     @Autowired
     SellMapper sellMapper;
 
+//    @Cacheable("searchbook") //标注该方法查询的结果进入缓存，再次访问时直接读取缓存中的数据
+//    public List<Item> searchBook(String keywords,long userid){
+//        System.out.println("你搜索的是"+keywords);
+//        String[] keyword= keywords.split("");
+//        HashMap<Integer, Item> searchlist =new HashMap<Integer, Item>();
+//        for(int i=0;i<keyword.length;i++){
+//            keyword[i]="%"+keyword[i]+"%";
+//        }
+//        ItemExample ie =new ItemExample();
+//
+//        for(String kw:keyword){
+//            ItemExample.Criteria iec = ie.or().andAuthorLike(kw).andStatusEqualTo(0).andSelleridNotEqualTo(userid).;
+//            ItemExample.Criteria iec1 = ie.or().andBooknameLike(kw).andStatusEqualTo(0).andSelleridNotEqualTo(userid);
+//            ItemExample.Criteria iec2 = ie.or().andPressLike(kw).andStatusEqualTo(0).andSelleridNotEqualTo(userid);
+//            ItemExample.Criteria iec3 = ie.or().andKindLike(kw).andStatusEqualTo(0).andSelleridNotEqualTo(userid);
+//            ie.or(iec);
+//            ie.or(iec1);
+//            ie.or(iec2);
+//            ie.or(iec3);
+//        }
+//        List<Item> itemlist = itemMapper.selectByExample(ie);
+//        return itemlist;
+//    }
+
     @Cacheable("searchbook") //标注该方法查询的结果进入缓存，再次访问时直接读取缓存中的数据
-    public List<Item> searchBook(String keywords,long userid){
+    public List<Item> searchBook(String keywords,long userid,int start,int num,String orderStr){
         System.out.println("你搜索的是"+keywords);
         String[] keyword= keywords.split("");
         HashMap<Integer, Item> searchlist =new HashMap<Integer, Item>();
@@ -42,6 +66,9 @@ public class BookServiceImpl implements BookService{
             keyword[i]="%"+keyword[i]+"%";
         }
         ItemExample ie =new ItemExample();
+        ie.setOrderByClause(orderStr);
+        ie.setStart(start);
+        ie.setLimit(num);
 
         for(String kw:keyword){
             ItemExample.Criteria iec = ie.or().andAuthorLike(kw).andStatusEqualTo(0).andSelleridNotEqualTo(userid);
@@ -95,11 +122,14 @@ public class BookServiceImpl implements BookService{
 
     }
     @Cacheable("getallbook")
-    public List<Item> getallBook(long userid){
+    public List<Item> getallBook(long userid,int start,int num,String orderstr){
 
         ItemExample ie =new ItemExample();
         ItemExample.Criteria iec = ie.createCriteria();
         iec.andStatusEqualTo(0).andSelleridNotEqualTo(userid);
+        ie.setOrderByClause(orderstr);
+        ie.setStart(start);
+        ie.setLimit(num);
         List<Item> itemlist = itemMapper.selectByExample(ie);
         return itemlist;
     }

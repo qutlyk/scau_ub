@@ -97,9 +97,9 @@
             <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
         </form>
     </div>
-</div>
-<div class="clear"></div>
 
+    <div class="clear"></div>
+</div>
 <b class="line"></b>
 <div class="listMain">
 
@@ -164,18 +164,6 @@
 
         }
     </script>
-    <div class="scoll">
-        <section class="slider">
-            <div class="flexslider">
-                <ul class="slides">
-                    <li>
-                        <img src="upload/${book.getImages()}" title="pic"/>
-                    </li>
-
-                </ul>
-            </div>
-        </section>
-    </div>
 
     <!--放大镜-->
 
@@ -184,9 +172,9 @@
 
             <div class="box">
                 <script type="text/javascript">
-                    $(document).ready(function() {
+                    $(document).ready(function () {
                         $(".jqzoom").imagezoom();
-                        $("#thumblist li a").click(function() {
+                        $("#thumblist li a").click(function () {
                             $(this).parents("li").addClass("tb-selected").siblings().removeClass("tb-selected");
                             $(".jqzoom").attr('src', $(this).find("img").attr("mid"));
                             $(".jqzoom").attr('rel', $(this).find("img").attr("big"));
@@ -194,15 +182,9 @@
                     });
                 </script>
                 <div class="tb-booth tb-pic tb-s310">
-                    <a href="upload/${book.getImages()}"><img src="upload/${book.getImages()}" alt="细节展示放大镜特效" rel="upload/${book.getImages()}" class="jqzoom" /></a>
+                    <a href="upload/${book.getImages()}"><img src="upload/${book.getImages()}" alt="细节展示放大镜特效"
+                                                              rel="upload/${book.getImages()}" class="jqzoom"/></a>
                 </div>
-                <ul class="tb-thumb" id="thumblist">
-                    <li class="tb-selected">
-                        <div class="tb-pic tb-s40">
-                            <a href="#"><img src="upload/${book.getImages()}" mid="upload/${book.getImages()}" big="upload/${book.getImages()}"></a>
-                        </div>
-                    </li>
-                </ul>
             </div>
             <div class="clear"></div>
         </div>
@@ -242,15 +224,13 @@
                                             <li title="">作者/主编:&nbsp;${book.getAuthor() }
                                             </li>
                                             <li title="">出版社:&nbsp;${book.getPress() }
-                                            </li><br>
-                                            <li title="">版本:&nbsp;${book.getOther() }
+                                            </li>
+                                            <li title="">版本:&nbsp;${book.getVersion() }
                                             </li>
                                             <li title="">专业:&nbsp;${book.getKind() }
                                             </li>
                                         </ul>
-                                        <h5 style="color: #ff5325">图书备注<h5/><br>
-                                        <div>${book.getOther()}</div>
-                                        <div class="clear"></div>
+
                                     </div>
 
 
@@ -295,7 +275,12 @@
         </div>
 
         <div class="clear"></div>
-
+        <br>
+        <b class="line"></b>
+        <br>
+        <div style="width:700px"><h5 style="color: #ff5325">图书备注</h5><br>
+            ${book.getOther()}</div>
+        <div class="clear"></div>
     </div>
 
 

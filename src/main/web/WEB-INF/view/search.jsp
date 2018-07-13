@@ -88,6 +88,7 @@
         <form action="search.do">
             <input value="${ keyword }" id="searchInput" name="keyword" type="text" placeholder="书名/出版社"
                    autocomplete="on">
+
             <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
         </form>
     </div>
@@ -134,8 +135,13 @@
                 </div>
                 <div class="search-content">
                     <div class="sort">
-                        <li><a title="待测试...">按综合排序</a></li>
-                        <li><a title="按价格排序" href="book/pricesort?keyword=${keyword}">按价格排序</a></li>
+                        <li><a title="暂时默认上架时间排序" href="search.do?keyword=${keyword}">按综合排序</a></li>
+                        <c:if test="${empty nextsort}">
+                            <li><a title="按价格排序" href="search.do?keyword=${keyword}&sort=1">按价格排序</a></li>
+                        </c:if>
+                        <c:if test="${not empty nextsort}">
+                            <li><a title="按价格排序" href="search.do?keyword=${keyword}&sort=${nextsort}">按价格排序</a></li>
+                        </c:if>
                     </div>
                     <div class="clear"></div>
 
@@ -164,7 +170,27 @@
                 </div>
                 <div class="clear"></div>
                 <!--分页 -->
+                <ul class="am-pagination am-pagination-right">
+                    <c:if test="${empty start}">
+                        <c:set var="start" value="1"/>
+                    </c:if>
+                    <c:if test="${empty sort}">
+                        <c:set var="sort" value="1"/>
+                    </c:if>
 
+                    <li class="am-disabled"><a href="#">&laquo;</a></li>
+                    <c:forEach var="pagei" begin="1" end="5" step="1">
+                        <c:if test="${pagei eq start}">
+                            <li class="am-active"><a href="search.do?keyword=${keyword}&sort=${sort}&start=${pagei}&limit=8">${pagei}</a></li>
+                        </c:if>
+                        <c:if test="${pagei ne start}">
+                            <li><a href="search.do?keyword=${keyword}&sort=${sort}&start=${pagei}&limit=8">${pagei}</a></li>
+                        </c:if>
+                    </c:forEach>
+                    <li><a href="#">&raquo;</a></li>
+
+
+                </ul>
 
             </div>
         </div>
